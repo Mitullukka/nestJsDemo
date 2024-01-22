@@ -18,8 +18,6 @@ export class AuthService {
 
     async signUp(signUpDto:SignUpDto): Promise<{token : string}> {
         const {name,email,password} = signUpDto
-
-
         const existingUser = await this.userModel.findOne({email})
         if(existingUser){
             throw new ConflictException({

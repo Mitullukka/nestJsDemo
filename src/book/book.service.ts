@@ -14,7 +14,6 @@ export class BookService {
     ){}
 
     async findAll(query: Query): Promise<Book[]>{
-
         const perPage  = Number(query.perPage) || 2;
         const currentPage = Number(query.page) || 1;
         const skip = perPage * (currentPage - 1)
@@ -25,7 +24,10 @@ export class BookService {
             }
         } : {}
 
-        const books = await this.bookModel.find({ ...keyword }).limit(perPage).skip(skip);
+        const books = await this.bookModel.find({ ...keyword }).limit(perPage).skip(skip).populate({
+            path:'user',
+            select:'name email'
+        });
         return books
     }
 

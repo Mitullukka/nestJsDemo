@@ -9,7 +9,6 @@ import { AuthGuard } from '@nestjs/passport';
 @Controller('book')
 export class BookController {
     constructor(private bookService:BookService){}
-
     @Get()
     async getAllBooks(@Query() query: ExpressQuery ): Promise<Book[]>{
         return this.bookService.findAll(query)
